@@ -1,73 +1,61 @@
-# React + TypeScript + Vite
+# Чек-лист выполненных требований:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## Список задач:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Список задач отображается через компонент TaskList, используя циклический рендеринг.
+Каждая задача имеет уникальный key, основанный на id.
 
-## React Compiler
+## Добавление и удаление задач:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Реализовано добавление новой задачи через компонент TaskForm с использованием состояния.
+Удаление задачи обновляет состояние, и задача исчезает из списка (условный рендеринг через фильтрацию массива).
 
-## Expanding the ESLint configuration
+## Текущая и предыдущая задача:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Используется хук useRef для хранения предыдущей задачи в компоненте App.
+Текущая и предыдущая задачи отображаются в отдельном блоке.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Стилизация:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Внешние CSS-файлы (TaskItem.css и styles.css) используются для оформления интерфейса.
+Инлайн-стили применяются для выделения завершённых задач (например, зачёркивание текста и изменение цвета).
+## Управление состоянием:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Задачу можно пометить как выполненную с помощью чекбокса. Состояние задачи обновляется в родительском компоненте App.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Подъём состояния:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Управление списком задач (tasks) и функциями добавления, удаления и обновления задач реализовано в родительском компоненте App.
+Эти данные передаются дочерним компонентам через props.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Доступ к элементам DOM:
+
+Для поля ввода задачи используется useRef, чтобы автоматически устанавливать фокус на поле после добавления задачи.
+Требования к компонентам:
+
+## Классовый компонент:
+
+Компонент TaskList реализован как классовый компонент для управления отображением списка задач.
+
+## Функциональные компоненты с хуками:
+
+Компоненты App, TaskForm, и TaskItem реализованы как функциональные компоненты.
+Используются хуки useState и useRef для управления состоянием и доступом к элементам DOM.
+
+## Уникальный key:
+
+Для каждого элемента списка задач используется уникальный key, основанный на идентификаторе задачи (id).
+
+## Условный рендеринг:
+
+Удаление задач реализовано через условный рендеринг (фильтрация массива задач).
+Завершённые задачи выделяются инлайн-стилями.
+
+## Визуализация текущей и предыдущей задач:
+
+В компоненте App отображаются текущая и предыдущая задачи с использованием useRef.
+
+## Инлайн-стили и внешний CSS:
+
+Для стилизации используются как инлайн-стили (выделение завершённых задач), так и внешние CSS-файлы для общего оформления.
